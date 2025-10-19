@@ -1,9 +1,18 @@
 from pages.main_page import MainPage
 
-def test_guest_can_go_to_login_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/"
-    page = MainPage(browser, link)
-    page.open()
-   # page.go_to_login_page()
-    #login_page = LoginPage(browser, link)
-     #login_page.should_be_login_page()
+class VisibilityProducts:
+    def test_guest_see_product_in_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/ru/catalogue/"
+        page = MainPage(browser, link)
+        page.open()
+        page.add_item_to_basket()
+        basket=page.go_to_basket_page()
+        basket.is_item_added_to_basket()
+
+    def test_guest_cant_see_product_in_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/ru/catalogue/"
+        page = MainPage(browser, link)
+        page.open()
+        basket = page.go_to_basket_page()
+        basket.is_item_not_added_to_basket()
+        basket.empty_basket_message()
